@@ -1,28 +1,42 @@
-# 🌲 Cypress, do Zero à Nuvem ☁️
+## Pré requisitos e instalação
 
-👋 Seja bem-vindo(a)!
+> - Instalar Git
+	Node js	
+	Visual Studio Code
 
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai amar esse curso. ❤️
+Para verificar as instalações: cmd> git --version && node --version && npm --version
 
-## O que você vai aprender?
+## Aplicação que será testada
+https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html
 
-- Como configurar um projeto Cypress do zero
-- Como visitar páginas locais e remotas
-- Como lidar com os elementos mais comuns encontrados em aplicações web
-- Como testar upload de arquivos
-- Como realizar as mais diversas verificações de resultados esperados
-- Como criar comandos customizados
-- Como lidar com links que abrem em outra aba do navegador
-- Como rodar testes simulando as dimensões de um dispositivo móvel
-- Como resolver os mesmos problemas de diferentes formas, conhecendo a [API do Cypress](https://docs.cypress.io/api/table-of-contents)
-- Como criar uma documentação mínima para seu projeto de testes automatizados
-- Como executar os testes em um _workflow_ de integração contínua sempre que mudanças ocorrerem no código da aplicação (ou dos testes)
-- Como integrar seu _workflow_ de integração contínua com o Cypress Cloud (o serviço de gestão de testes do Cypress na nuvem)
+## Procedimento de criação de chave no git, clonagem do projeto e conexão ao desktop
 
-## Vamos começar?
+> - Abrir o link abaixo
+https://github.com/wlsf82/cypress-do-zero-a-nuvem
 
-Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
+> - Ir em "Code">aba SSH e criar uma chave ssh
 
-___
+> - Abrir o git bash e digitar
+ssh-keygen -t ed25519 -C "pedroo.h.s@hotmail.com"
 
-Este é um curso da **Escola Talking About Testing**.
+> - Criar uma senha e frase de segurança, (se não quiser é só dar enter)
+executar o comando cat C:/Users/Pedro/.ssh/id_ed25519.pub
+
+> - Após isso ir no git navegador> Settings>aba SSH and GPG Keys
+e colar o conteúdo e criar a chave
+
+> - Dar um fork
+
+> - clonar o projeto com o comando 
+git clone git@github.com:Pedrohs92/cypress-do-zero-a-nuvem.git
+
+instalar o cypress
+npm install cypress@13.12.0 --save-dev
+
+abrir o cypress
+npx cypress open
+
+selecionar teste e2e>continuar
+selecionar navegador eléctron
+
+Create new spec>alterar para CAC-TAT.cy.js
