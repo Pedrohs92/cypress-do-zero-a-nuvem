@@ -7,7 +7,11 @@ it('Testa a página de política de privacidade em uma nova aba',() => {
     cy.contains('h1', 'CAC TAT - Política de Privacidade')
     .should('be.visible')
     cy.contains('p','Talking About Testing')
-    .should('be.visible')                  
- 
+    .should('be.visible')           
+    
  })
+
+
+
 })
+

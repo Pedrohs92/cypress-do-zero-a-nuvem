@@ -10,7 +10,8 @@ beforeEach(() => {
     //comando para validar se o título está igual
    })
     it('Preenche os campos obrigatórios e enva o formulário', () => {
-    const longText = Cypress._.repeat('muitas vezes', 10)
+    cy.clock()
+      const longText = Cypress._.repeat('muitas vezes', 4)
     //repetir os mesmo caracteres 10 vez, insetir o nome da variável no na função type
       cy.get('#firstName').type('Pedro')
       cy.get('#lastName').type('Santana')
@@ -18,7 +19,7 @@ beforeEach(() => {
       cy.get('#email').should('be.visible')
       cy.get('#phone').type(1199999999)
       cy.get('#product').select('youtube')
-      cy.get('#open-text-area').type (longText, {delay: 99})
+      cy.get('#open-text-area').type (longText, {delay: 79})
     //inserido a variável de repetição e delay de digitação
       cy.get('button[type="submit"]').click()
     //sempre começa cy.get,seguido do nome elemento ou campo a ser digitado, seguido da ação, se será selecionar, clicar ou digitar, e o valor a ser digitado ou escolhido
@@ -26,8 +27,13 @@ beforeEach(() => {
     //id começa com # (exemplos email, phone, firstName...) e classe começa com ponto(.success)
       cy.get('.success').should('be.visible')
     //valida se a mensagem de sucesso é exibida
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
+
+    
    })
-      it('Validar mensagem de erro de email é exibida',() => {
+      it.only('Validar mensagem de erro de email é exibida',() => {
+         cy.clock()
          cy.get('#firstName').type('Pedro')
          cy.get('#lastName').type('Santana')
          cy.get('#email').type('teste', {})
@@ -37,6 +43,8 @@ beforeEach(() => {
          cy.get('#open-text-area').type ('Teste')
          cy.get('button[type="submit"]').click()
          cy.get('.error').should('be.visible')
+         cy.tick(3000)
+         cy.get('.error').should('not.be.visible')
       })
 
          it('Inserção de telefone inválido',() => {
@@ -231,5 +239,29 @@ beforeEach(() => {
                         .should('be.visible')                  
                      //teste de subida
                      })
+
+                     it('Faz uma requisição HTTP', () => {
+                        cy.request('https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html')
+                        .as('getRequest')
+                        //renomeio o comando para apenas getRequest
+                        .its('status')
+                        .should('be.equal', 200)
+                        //Verifico que o status da requisição é 200
+                        cy.get ('@getRequest')   
+                        .its('statusText')
+                        .should('be.equal', 'OK')
+                        //Verifico que o Status seja OK
+                        cy.get('@getRequest')
+                        .its('body')
+                        .should ('include','CAC TAT')
+                        //Verifico que no body tenha CAC TAT
+                      })
+
+                      it.only('Encontra o gato escondido',() =>{
+                        cy.get('#cat')
+                        .invoke('show')
+                        .should('be.visible')
+
+                      })
 
             }) 
