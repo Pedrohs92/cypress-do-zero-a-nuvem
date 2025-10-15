@@ -1,0 +1,89 @@
+DICAS
+cy.get('input[type="text"]').type('texto a ser digitado') -PEGA UM ELEMENTO DO TIPO TEXT
+  .should('be.visible') -GARANTE QUE ESTEJA VISIVEL
+cy.get('input[type="checkbox"],[value="NomeDoValue"]').check() -PEGA UM ELEMENTO DO TIPO CHECKBOX E CLICA
+  .should('be.checked','Nome,ValueOuIdDoCheck') -GARANTE QUE ESTEJA CHECKADO
+cy.get('.NomeDaClasse')-PEGA UMA CLASSE
+  .should('be.visible') -GARANTE QUE A MENSAGEM É EXIBIDA
+cy.get ('input[type=radio],[value="NomeDoValue"]').click()
+.should ('be.checked','LabelDoRadioButton')
+cy.get('input[type="checkbox"]').uncheck()
+  	
+  .type('Olá mundo!') - DIGITE OLA MUNDO
+  .should('have.value', 'Olá mundo!') -GARANTE O CONTEUDO
+  
+
+
+Comandos personalizados
+criar o seguinte comando na pasta comands.js
+Cypress.Commands.add('nome do comando personalizado',() => { todos os cy.get
+
+})
+
+na aba dos testes inserir o caso de testes com o nome do comando personalizado
+
+it('nome do ct',() =>{
+cy.nome do comando personalizado()
+})
+
+Testar abertura de um link que abrirá na mesma aba e validar tags
+cy.contains('a','Política de Privacidade')
+//contém a tag a e o conteúdo da tag que é Política de Privacidade
+.invoke ('removeAttr','target')
+//removi o atributo target que abre em uma nova aba
+.click()
+cy.contains('h1','CAC TAT - Política de Privacidade')
+.should('be.visible') 
+
+cy.clock()
+const longText = Cypress._.repeat('muitas vezes', 4)
+repetir os mesmo caracteres 4 vezes, inserir o nome da variável no na função type
+cy.get('#open-text-area').type (longText, {delay: 79})
+
+
+Testar abertura de um link que abrirá em uma nova aba e validar tags
+Criar um novo arquivo na pasta e2e>inserir o beforeEach com cy.visit('url da nova aba')
+cy.contains('h1', 'CAC TAT - Política de Privacidade')
+.should('be.visible')
+cy.contains('p','Talking About Testing')
+.should('be.visible')
+
+Gravação de vídeo
+na pasta cypress.config.js
+adicionei o comando video:true
+
+na pasta package.json
+adicionei o comando "test:mobile":"cypress run --config viewportWidth=410,viewportHeight=860"
+
+EXECUTAR TESTE ESPECÍFICO
+npx cypress run --spec ".cypress\e2e\nomedoteste.cy.js"
+
+
+RODAR TESTES EM MODO HEADLESS (sem visualização gráfica)
+npx cypress run 
+Roda todos os testes
+
+npx cypress run --spec ".\cypress\e2e\falar-responsavel.cy.js"
+Roda um único teste
+
+Mochawesome
+- gera relatórios de testes
+instalação: npm install --save-dev mochawesome
+
+na pasta cypress.config,js inserir o código dentro da chave e2e
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'cypress/results',
+    overwrite: false,
+    html: true,
+    json: false,
+    timestamp: "mmddyyyy_HHMMss"}
+
+EXECUÇÃO DO TESTE COM RELATÓRIO
+npx cypress run --repórter mochawesome
+
+COMANDO PERSONALIZADO
+ir na aba commands.js
+Cypress.Commands.add('login', (email, password) => { "todos os cy.get, .click. type" })
+
+ir na aba do teste e inserir os valores: cy.login('pedro@email.com', 'senha123')
